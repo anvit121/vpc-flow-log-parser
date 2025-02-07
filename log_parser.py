@@ -12,7 +12,11 @@ with open ("lookup_table.csv", "r") as lookup_file:
     for row in read:
         dstport = row["dstport"].strip()  #removing extra spaces using strip function
         protocol = row["protocol"].strip() #removing extra spaces using strip function
-        tag = row.get("tag", "").strip() #removing extra spaces using strip function
+        tag = row.get("tag")
+        if tag is not None:
+            tag = tag.strip() #removing extra spaces using strip function
+        else:
+            tag = ""  # empty string if tag is missing
         lookup_table[(dstport, protocol)] = tag #using (dstport, protocol) as key and tag as the value
 
 counts_tag = {} # storing key as the tag and value as the count of their occurence
